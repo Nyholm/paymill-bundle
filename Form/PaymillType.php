@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType,
     Symfony\Component\OptionsResolver\OptionsResolverInterface,
     Symfony\Component\Validator\Constraints\NotBlank,
     Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class PaymillType extends AbstractType
 {
@@ -24,12 +26,12 @@ class PaymillType extends AbstractType
         ));
 
         $builder
-            ->add('number' , 'text',   array('required' => false, 'label' => 'Card number'))
-            ->add('expiry' , 'text',   array('required' => false, 'label' => 'Expires'))
-            ->add('holder' , 'text',   array('required' => false, 'label' => 'Name on card'))
-            ->add('cvc'    , 'text',   array('required' => false, 'label' => 'Card code'))
-            ->add('token'  , 'hidden', array(
-                'required' => false,
+            ->add('number' , TextType::class,   array('required' => true, 'label' => 'Card number'))
+            ->add('expiry' , TextType::class,   array('required' => true, 'label' => 'Expires'))
+            ->add('holder' , TextType::class,   array('required' => true, 'label' => 'Name on card'))
+            ->add('cvc'    , TextType::class,   array('required' => true, 'label' => 'Card code'))
+            ->add('token'  , HiddenType::class, array(
+                'required' => true,
                 'constraints' => array($tokenNotBlank)
             ))
         ;

@@ -2,6 +2,7 @@
 
 namespace Memeoirs\PaymillBundle\Controller;
 
+use JMS\Payment\CoreBundle\Form\ChoosePaymentMethodType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -11,7 +12,7 @@ abstract class PaymillController extends Controller
 {
     protected function getPaymillForm($amount, $currency, $options = array())
     {
-        return $this->get('form.factory')->create('jms_choose_payment_method', null, array(
+        return $this->get('form.factory')->create(ChoosePaymentMethodType::class, null, array(
             'allowed_methods' => array('paymill'),
             'default_method'  => 'paymill',
             'amount'          => $amount,
